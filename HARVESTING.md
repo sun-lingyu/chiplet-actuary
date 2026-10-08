@@ -29,6 +29,36 @@ The upstream 5nm parameters are not Thor-specific cost or defect-density measure
 The 16-MB CPU L3, 32 L2 slices, 16 L3 slices, and 100,000 sales per tier in the
 example are explicitly illustrative assumptions, not measured Thor properties.
 
+## PHY harvesting and monolithic edge budget
+
+The 5nm example manufactures four PCIe x8 PHY groups and four 128-bit memory PHY
+groups (512 bits total). Set `harvest_io_phys: true` for SoC-derived layouts.
+L/M/S require `pcie_x8_count: 4/2/1` and `memory_bus_bits: 512/256/128`,
+in addition to the existing compute/cache minima. PCIe granularity is fixed at
+one x8 group; memory granularity is fixed at 128 bits. Every enabled pool must
+have explicit requirements in every tier. With PHY harvesting disabled, old
+four-pool configurations remain supported.
+
+The measured PCIe and memory PHY areas are subtracted from mandatory area and
+partitioned into equal groups. Area is conserved; all proportional residual
+overhead and unidentified/shared PCIe/memory controllers remain mandatory.
+No fixed association between PHY groups and particular cores/cache slices is
+modeled. Any healthy groups can satisfy the advertised interfaces.
+
+The physical SoC configuration uses `integration: "package"`,
+`phy_edge_count: 4` and `pcie_x8_count: 4`. All manufactured interfaces must
+fit four equivalent-square edges: memory + PCIe + USB + HDMI/DP (+ D2D if
+present). Disabling groups does not reduce physical area or shoreline.
+MicroPod uses the same length-accounting rule but retains a fixed two-edge
+budget. Neither check is detailed floorplanning. CSI/Ethernet remain in the
+die area but outside this specified interface-length budget.
+
+Manual layouts can optionally provide `pcie_phys` and `memory_phys`
+resource entries; their units_per_block must be 1 and 128, respectively.
+Manual layouts are assumed already physically validated and do not run the
+SoC shoreline check. Output `resource_order` defines the order of
+`required_blocks`, including the new pools.
+
 ## Physical defect partition
 
 * GPU harvesting unit is fixed at **2 SM per TPC**, including SM private storage
@@ -36,13 +66,13 @@ example are explicitly illustrative assumptions, not measured Thor properties.
 * CPU harvesting unit is fixed at **1 core**, including its private cache.
 * GPU L2 and CPU shared L3 use equal-capacity, equal-area slices, with independently
   configurable slice counts. Local slice circuitry fails with its slice.
-* GPU command front, shared GPC overhead, shared L2 controller, non-GPU/CPU IP and
+* GPU command front, shared GPC overhead, shared L2 controller, non-harvestable IP and
   all unidentified/physical overhead are mandatory and must survive.
 * Shared CPU L3 control is not independently identified in the area model; it is
   assumed included in mandatory system overhead. Slice-local circuitry is included
   in the measured L3 region.
 
-`harvesting_adapter.from_soc_area` maps the existing area result into these four
+`harvesting_adapter.from_soc_area` maps the existing area result into the enabled
 harvestable pools plus mandatory area. The sum is checked against the complete
 physical die. It never applies another utilization factor. Configurations with
 `valid: false` from the area model are rejected. The CLI supports either `soc`
@@ -72,8 +102,8 @@ P(a unit in pool i survives | x) = exp(-D*x*ai)
 Gi | x ~ Binomial(ni, exp(-D*x*ai))
 ```
 
-The four pools are independent conditional on X, but NOT independent marginally.
-Integrate the mandatory survival probability times the four binomial tails over
+The enabled pools are independent conditional on X, but NOT independent marginally.
+Integrate the mandatory survival probability times the resource-pool binomial tails over
 X to obtain the probability of satisfying each tier. Quadrature reports failure
 instead of silently accepting poor convergence. Requiring every unit healthy gives:
 
@@ -88,7 +118,7 @@ We do not independently apply the whole-die NB formula to every block and multip
 
 Each tier declares positive minimum `gpu_sms`, `cpu_cores`, `gpu_l2_mb` and
 `cpu_l3_mb`. GPU SM thresholds must be even. Cache thresholds round UP to complete
-slices, and effective block requirements are included in output. All four minima
+slices, and effective block requirements are included in output. All enabled resource minima
 must hold simultaneously. Tiers must be listed highest first and componentwise
 nested. Eligible yields are cumulative; adjacent differences produce mutually
 exclusive highest-qualified bins. The remainder is scrap. Disabling harvesting

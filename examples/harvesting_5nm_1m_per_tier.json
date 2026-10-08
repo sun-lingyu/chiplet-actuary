@@ -27,7 +27,7 @@
       "cpu_l3_mb": 16,
       "pcie_x8_count": 4,
       "memory_bus_bits": 512,
-      "demand": 100000
+      "demand": 1000000
     },
     {
       "name": "M",
@@ -37,7 +37,7 @@
       "cpu_l3_mb": 8,
       "pcie_x8_count": 2,
       "memory_bus_bits": 256,
-      "demand": 100000
+      "demand": 1000000
     },
     {
       "name": "S",
@@ -47,7 +47,7 @@
       "cpu_l3_mb": 4,
       "pcie_x8_count": 1,
       "memory_bus_bits": 128,
-      "demand": 100000
+      "demand": 1000000
     }
   ]
 }

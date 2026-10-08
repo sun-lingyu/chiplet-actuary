@@ -98,65 +98,65 @@
     },
     "production": {
       "whole_wafers": true,
-      "wafers": 4163,
+      "wafers": 41623,
       "gross_dies_per_wafer": 94.43617856003603,
-      "fabricated_dies": 393137.81134543,
+      "fabricated_dies": 3930717.0602043797,
       "package_yield": 0.99,
-      "expected_package_failures": 3030.303030303039,
+      "expected_package_failures": 30303.030303030275,
       "demand": {
-        "L": 100000,
-        "M": 100000,
-        "S": 100000
+        "L": 1000000,
+        "M": 1000000,
+        "S": 1000000
       },
       "prepackage_demand": {
-        "L": 101010.10101010102,
-        "M": 101010.10101010102,
-        "S": 101010.10101010102
+        "L": 1010101.0101010101,
+        "M": 1010101.0101010101,
+        "S": 1010101.0101010101
       },
       "bin_supply": {
-        "L": 222722.74041928255,
-        "M": 80358.82017540676,
-        "S": 1.5222854612740577
+        "L": 2226852.900425606,
+        "M": 803453.0800290549,
+        "S": 15.220294920636587
       },
       "unused_bin_supply": {
-        "L": 52.779849847531295,
+        "L": 18.170446551172063,
         "M": 0.0,
         "S": 0.0
       },
       "allocation_source_to_sku": {
         "L": {
-          "L": 101010.10101010102,
-          "M": 20651.280834694262,
-          "S": 101008.57872463974
+          "L": 1010101.0101010101,
+          "M": 206647.9300719552,
+          "S": 1010085.7898060895
         },
         "M": {
           "L": 0.0,
-          "M": 80358.82017540676,
+          "M": 803453.0800290549,
           "S": 0.0
         },
         "S": {
           "L": 0.0,
           "M": 0.0,
-          "S": 1.5222854612740577
+          "S": 15.220294920636587
         }
       },
-      "scrap_dies": 90054.72846527939
+      "scrap_dies": 900395.859454798
     },
     "manufacturing_cost": {
-      "wafers": 70721044.0,
-      "bumping": 805354.1751515397,
-      "raw_packages": 3221416.700606159
+      "wafers": 707091524.0,
+      "bumping": 8053541.751515397,
+      "raw_packages": 32214167.006061587
     },
-    "manufacturing_total": 74747814.8757577,
+    "manufacturing_total": 747359232.757577,
     "nre_cost": {
       "module_design": 480152159.225348,
       "die_design": 396491295.53520876,
       "package_design": 6678405.067200194
     },
     "nre_total": 883321859.8277569,
-    "family_total": 958069674.7035146,
-    "average_manufacturing_per_shipped_unit": 249.15938291919232,
-    "average_total_per_shipped_unit": 3193.5655823450484,
+    "family_total": 1630681092.5853338,
+    "average_manufacturing_per_shipped_unit": 249.11974425252563,
+    "average_total_per_shipped_unit": 543.5603641951112,
     "upstream_unharvested_manufacturing_per_unit": 334.15945458161025,
     "notes": [
       "Full die area is manufactured for every SKU; disabling resources never reduces wafer area.",
@@ -221,36 +221,36 @@
     },
     "production": {
       "whole_wafers": true,
-      "wafers": 5665,
+      "wafers": 56641,
       "gross_dies_per_wafer": 94.43617856003603,
-      "fabricated_dies": 534980.9515426041,
+      "fabricated_dies": 5348959.589819001,
       "package_yield": 0.99,
-      "expected_package_failures": 3030.303030303039,
+      "expected_package_failures": 30303.030303030275,
       "demand": {
-        "L": 100000,
-        "M": 100000,
-        "S": 100000
+        "L": 1000000,
+        "M": 1000000,
+        "S": 1000000
       },
       "prepackage_demand": {
-        "L": 101010.10101010102,
-        "M": 101010.10101010102,
-        "S": 101010.10101010102
+        "L": 1010101.0101010101,
+        "M": 1010101.0101010101,
+        "S": 1010101.0101010101
       },
       "bin_supply": {
-        "L": 303080.5487569627,
+        "L": 3030323.9827260594,
         "M": 0.0,
         "S": 0.0
       },
       "unused_bin_supply": {
-        "L": 50.245726659632055,
+        "L": 20.95242302911356,
         "M": 0.0,
         "S": 0.0
       },
       "allocation_source_to_sku": {
         "L": {
-          "L": 101010.10101010102,
-          "M": 101010.10101010102,
-          "S": 101010.10101010102
+          "L": 1010101.0101010101,
+          "M": 1010101.0101010101,
+          "S": 1010101.0101010101
         },
         "M": {
           "L": 0.0,
@@ -263,23 +263,23 @@
           "S": 0.0
         }
       },
-      "scrap_dies": 231900.4027856414
+      "scrap_dies": 2318635.6070929416
     },
     "manufacturing_cost": {
-      "wafers": 96237020.0,
-      "bumping": 805354.1751515397,
-      "raw_packages": 3221416.700606159
+      "wafers": 962217308.0,
+      "bumping": 8053541.751515397,
+      "raw_packages": 32214167.006061587
     },
-    "manufacturing_total": 100263790.8757577,
+    "manufacturing_total": 1002485016.757577,
     "nre_cost": {
       "module_design": 480152159.225348,
       "die_design": 396491295.53520876,
       "package_design": 6678405.067200194
     },
     "nre_total": 883321859.8277569,
-    "family_total": 983585650.7035146,
-    "average_manufacturing_per_shipped_unit": 334.21263625252567,
-    "average_total_per_shipped_unit": 3278.618835678382,
+    "family_total": 1885806876.5853338,
+    "average_manufacturing_per_shipped_unit": 334.16167225252565,
+    "average_total_per_shipped_unit": 628.6022921951113,
     "upstream_unharvested_manufacturing_per_unit": 334.15945458161025,
     "notes": [
       "Full die area is manufactured for every SKU; disabling resources never reduces wafer area.",
@@ -434,6 +434,6 @@
       "Edge-budget check includes memory, D2D PHY, USB, PCIe and HDMI/DP only; CSI/Ethernet remain in area but are outside this specified edge budget. Not a floorplan validation."
     ]
   },
-  "manufacturing_saving_fraction": 0.25448844270827775,
-  "total_saving_fraction": 0.025941793662554558
+  "manufacturing_saving_fraction": 0.2544933637264477,
+  "total_saving_fraction": 0.13528733359057477
 }

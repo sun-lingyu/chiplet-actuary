@@ -1,4 +1,4 @@
-"""Run: python -m chiplet_actuary.harvesting_cli --config examples/harvesting_7nm.json"""
+"""Run: python -m chiplet_actuary.harvesting_cli --config examples/harvesting_5nm.json"""
 
 import argparse
 import json
@@ -19,7 +19,14 @@ def make_die(config):
             Resource(key, **layout[key])
             for key in ("gpu_tpcs", "cpu_cores", "gpu_l2_slices", "cpu_l3_slices")
         ]
-        return HarvestingDie(name, node, layout["mandatory_area_mm2"], *resources), None
+        phys = {
+            key: Resource(key, **layout[key])
+            for key in ("pcie_phys", "memory_phys")
+            if key in layout
+        }
+        return HarvestingDie(
+            name, node, layout["mandatory_area_mm2"], *resources, **phys
+        ), None
     # This extension lives in LLMCompassPlus/cost_model/chiplet-actuary.
     workspace = Path(__file__).resolve().parents[3]
     sys.path.insert(0, str(workspace))
@@ -27,7 +34,7 @@ def make_die(config):
     from area_model.soc_model import calculate_soc_area
 
     area = calculate_soc_area(**config["soc"])
-    calibration = load_area_data("Thor")
+    calibration = load_area_data(area["config"]["hardware"])
     tpc = calibration["tpc_extra"]
     tpc_area = (
         tpc["unit_count"]
@@ -41,6 +48,7 @@ def make_die(config):
         node=node,
         gpu_tpc_extra_area_mm2=tpc_area,
         gpu_l2_shared_control_area_mm2=calibration["l2_cache"]["ctrl"],
+        harvest_io_phys=config.get("harvest_io_phys", False),
         **config["cache_slices"],
     )
     return die, area
@@ -59,7 +67,8 @@ def run_config(config):
         "without_harvesting": baseline,
         "assumptions": [
             "Gamma-Poisson die-wide intensity; block failures conditionally independent.",
-            "Any healthy TPC/core/cache slice is usable; routing, timing and repair implementation are not modeled.",
+            "Any healthy TPC/core/cache slice and enabled harvestable PHY group is usable; no fixed binding between PHY groups and compute/cache partitions.",
+            "When enabled, PCIe PHY granularity is one x8 group and memory PHY granularity is 128 bits. Unidentified/shared controllers remain mandatory.",
             "Common control, all other IP and all unidentified area overhead must be defect-free.",
             "One physical die design and one shared OS package design across all SKUs.",
             "Cost-node selection does not scale the input area to that technology.",

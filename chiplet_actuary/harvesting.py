@@ -8,7 +8,7 @@ SciPy quadrature is used for bin probabilities, not independent block NB yields.
 import math
 from dataclasses import dataclass
 from functools import cached_property
-from typing import List
+from typing import List, Optional
 
 from scipy.integrate import quad
 from scipy.special import gammaln
@@ -75,6 +75,8 @@ class Tier:
     gpu_l2_mb: float
     cpu_l3_mb: float
     demand: int
+    pcie_x8_count: Optional[int] = None
+    memory_bus_bits: Optional[int] = None
 
     def __post_init__(self):
         if not isinstance(self.name, str) or not self.name:
@@ -85,6 +87,13 @@ class Tier:
         _nonnegative("gpu_l2_mb", self.gpu_l2_mb, positive=True)
         _nonnegative("cpu_l3_mb", self.cpu_l3_mb, positive=True)
         _integer("demand", self.demand)
+        if self.pcie_x8_count is not None:
+            _integer("pcie_x8_count", self.pcie_x8_count, positive=True)
+        if self.memory_bus_bits is not None:
+            if _integer("memory_bus_bits", self.memory_bus_bits, positive=True) % 128:
+                raise ValueError(
+                    "Memory PHY requirements must be multiples of 128 bits"
+                )
 
     @property
     def requirements(self):
@@ -100,6 +109,8 @@ class HarvestingDie:
     cpu_cores: Resource
     gpu_l2_slices: Resource
     cpu_l3_slices: Resource
+    pcie_phys: Optional[Resource] = None
+    memory_phys: Optional[Resource] = None
 
     def __post_init__(self):
         if self.node not in spec.Defect_Density_Die:
@@ -109,10 +120,36 @@ class HarvestingDie:
             raise ValueError("GPU granularity is fixed at 2 SM per TPC")
         if self.cpu_cores.units_per_block != 1:
             raise ValueError("CPU granularity is fixed at 1 core")
+        if self.pcie_phys is not None and self.pcie_phys.units_per_block != 1:
+            raise ValueError("PCIe granularity is fixed at one x8 PHY")
+        if self.memory_phys is not None and self.memory_phys.units_per_block != 128:
+            raise ValueError("Memory PHY granularity is fixed at 128 bits")
 
     @property
     def resources(self):
-        return (self.gpu_tpcs, self.cpu_cores, self.gpu_l2_slices, self.cpu_l3_slices)
+        base = (self.gpu_tpcs, self.cpu_cores, self.gpu_l2_slices, self.cpu_l3_slices)
+        return base + tuple(
+            r for r in (self.pcie_phys, self.memory_phys) if r is not None
+        )
+
+    def _tier_requirements(self, tier):
+        values = list(tier.requirements)
+        for pool, amount in (
+            (self.pcie_phys, tier.pcie_x8_count),
+            (self.memory_phys, tier.memory_bus_bits),
+        ):
+            if pool is None:
+                if amount is not None:
+                    raise ValueError(
+                        "PHY tier requirement provided without a physical PHY resource pool"
+                    )
+            else:
+                if amount is None:
+                    raise ValueError(
+                        "Each tier must specify requirements for all physical PHY pools"
+                    )
+                values.append(amount)
+        return values
 
     @property
     def area(self):
@@ -131,7 +168,8 @@ class HarvestingDie:
         previous = None
         for tier in tiers:
             required = tuple(
-                r.required_blocks(u) for r, u in zip(self.resources, tier.requirements)
+                r.required_blocks(u)
+                for r, u in zip(self.resources, self._tier_requirements(tier))
             )
             if previous is not None and any(a > b for a, b in zip(required, previous)):
                 raise ValueError(
@@ -195,6 +233,7 @@ class HarvestingDie:
             "exclusive_bin_yields": dict(zip((t.name for t in tiers), bins)),
             "scrap_yield": 1 - sum(bins),
             "required_blocks": dict(zip((t.name for t in tiers), thresholds)),
+            "resource_order": [r.name for r in self.resources],
             "harvesting_enabled": harvesting,
         }
 

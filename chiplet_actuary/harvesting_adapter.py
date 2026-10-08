@@ -15,6 +15,7 @@ def from_soc_area(
     cpu_l3_total_mb,
     gpu_tpc_extra_area_mm2,
     gpu_l2_shared_control_area_mm2,
+    harvest_io_phys=False,
 ):
     """All residual overhead, command front and shared GPC/control logic are mandatory.
 
@@ -54,6 +55,19 @@ def from_soc_area(
             cpu_l3_total_mb / l3_count,
         ),
     )
+    if not isinstance(harvest_io_phys, bool):
+        raise ValueError("harvest_io_phys must be boolean")
+    if harvest_io_phys:
+        pcie = _integer("pcie_x8_count", config["pcie_x8_count"], positive=True)
+        memory = _integer("memory_bus_bits", config["memory_bus_bits"], positive=True)
+        if memory % 128:
+            raise ValueError(
+                "Physical memory interface must contain whole 128-bit PHY groups"
+            )
+        resources += (
+            Resource("pcie_phys", pcie, components["pcie_phy"], 1),
+            Resource("memory_phys", memory // 128, components["memory_phy"], 128),
+        )
     mandatory = total - sum(r.total_area_mm2 for r in resources)
     _nonnegative("mandatory area", mandatory)
     die = HarvestingDie(name, node, mandatory, *resources)
