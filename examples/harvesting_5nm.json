@@ -1,0 +1,44 @@
+{
+  "name": "monolithic_demo_32sm",
+  "node": "5",
+  "scenario_label": "Illustrative only: Thor-derived geometry with upstream 5nm cost parameters. CPU L3=16MB and slice counts are example assumptions; upstream costs and defect density are not Thor-specific measurements.",
+  "whole_wafers": true,
+  "soc": {
+    "target_sm_count": 32,
+    "target_l2_size_mb": 64,
+    "cpu_core_count": 16,
+    "memory_bus_bits": 512,
+    "integration": "board"
+  },
+  "cache_slices": {
+    "gpu_l2_slice_count": 32,
+    "cpu_l3_slice_count": 16,
+    "cpu_l3_total_mb": 16
+  },
+  "tiers": [
+    {
+      "name": "L",
+      "gpu_sms": 32,
+      "cpu_cores": 16,
+      "gpu_l2_mb": 64,
+      "cpu_l3_mb": 16,
+      "demand": 100000
+    },
+    {
+      "name": "M",
+      "gpu_sms": 16,
+      "cpu_cores": 8,
+      "gpu_l2_mb": 32,
+      "cpu_l3_mb": 8,
+      "demand": 100000
+    },
+    {
+      "name": "S",
+      "gpu_sms": 8,
+      "cpu_cores": 4,
+      "gpu_l2_mb": 16,
+      "cpu_l3_mb": 4,
+      "demand": 100000
+    }
+  ]
+}

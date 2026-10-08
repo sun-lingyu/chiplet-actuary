@@ -19,3 +19,8 @@ Modify the following files to include related (up-to-date) data, then run:
 python main.py
 ```
 
+
+
+### MicroPodSim harvesting extension
+
+See [HARVESTING.md](HARVESTING.md) for defect binning, downgrade-only sales allocation, and single-die product-family costing. The original cost APIs remain available.

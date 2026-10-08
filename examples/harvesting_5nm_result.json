@@ -1,0 +1,374 @@
+{
+  "scenario_label": "Illustrative only: Thor-derived geometry with upstream 5nm cost parameters. CPU L3=16MB and slice counts are example assumptions; upstream costs and defect density are not Thor-specific measurements.",
+  "layout": {
+    "total_area_mm2": 519.5954441903029,
+    "mandatory_area_mm2": 281.80179490334564,
+    "resources": {
+      "gpu_tpcs": {
+        "count": 16,
+        "total_area_mm2": 113.44,
+        "area_per_block_mm2": 7.09,
+        "units_per_block": 2
+      },
+      "cpu_cores": {
+        "count": 16,
+        "total_area_mm2": 52.97331796505978,
+        "area_per_block_mm2": 3.310832372816236,
+        "units_per_block": 1
+      },
+      "gpu_l2_slices": {
+        "count": 32,
+        "total_area_mm2": 45.36,
+        "area_per_block_mm2": 1.4175,
+        "units_per_block": 2.0
+      },
+      "cpu_l3_slices": {
+        "count": 16,
+        "total_area_mm2": 26.020331321897526,
+        "area_per_block_mm2": 1.6262707076185954,
+        "units_per_block": 1.0
+      }
+    }
+  },
+  "with_harvesting": {
+    "feasible": true,
+    "scope": "one monolithic physical die, one shared organic-substrate package; expected-value production",
+    "node": "5",
+    "physical_die_area_mm2": 519.5954441903029,
+    "yields": {
+      "full_die_yield": 0.5736028078041039,
+      "eligible_yields": {
+        "L": 0.5736028078041039,
+        "M": 0.7369210126276347,
+        "S": 0.7369210126276451
+      },
+      "exclusive_bin_yields": {
+        "L": 0.5736028078041039,
+        "M": 0.16331820482353077,
+        "S": 1.0436096431476471e-14
+      },
+      "scrap_yield": 0.2630789873723549,
+      "required_blocks": {
+        "L": [
+          16,
+          16,
+          32,
+          16
+        ],
+        "M": [
+          8,
+          8,
+          16,
+          8
+        ],
+        "S": [
+          4,
+          4,
+          8,
+          4
+        ]
+      },
+      "harvesting_enabled": true
+    },
+    "production": {
+      "whole_wafers": true,
+      "wafers": 4244,
+      "gross_dies_per_wafer": 96.90422066029251,
+      "fabricated_dies": 411261.5124822814,
+      "package_yield": 0.99,
+      "expected_package_failures": 3030.303030303039,
+      "demand": {
+        "L": 100000,
+        "M": 100000,
+        "S": 100000
+      },
+      "prepackage_demand": {
+        "L": 101010.10101010102,
+        "M": 101010.10101010102,
+        "S": 101010.10101010102
+      },
+      "bin_supply": {
+        "L": 235900.75830159915,
+        "M": 67166.4919316163,
+        "S": 4.291964802819954e-09
+      },
+      "unused_bin_supply": {
+        "L": 36.94720291670819,
+        "M": 0.0,
+        "S": 0.0
+      },
+      "allocation_source_to_sku": {
+        "L": {
+          "L": 101010.10101010102,
+          "M": 33843.60907848472,
+          "S": 101010.10101009673
+        },
+        "M": {
+          "L": 0.0,
+          "M": 67166.4919316163,
+          "S": 0.0
+        },
+        "S": {
+          "L": 0.0,
+          "M": 0.0,
+          "S": 4.291964802819954e-09
+        }
+      },
+      "scrap_dies": 108194.26224906169
+    },
+    "manufacturing_cost": {
+      "wafers": 72097072.0,
+      "bumping": 787265.824530762,
+      "raw_packages": 3149063.298123048
+    },
+    "manufacturing_total": 76033401.12265381,
+    "nre_cost": {
+      "module_design": 469367884.58524036,
+      "die_design": 390020730.7511442,
+      "package_design": 6535145.330283635
+    },
+    "nre_total": 865923760.6666682,
+    "family_total": 941957161.789322,
+    "average_manufacturing_per_shipped_unit": 253.44467040884604,
+    "average_total_per_shipped_unit": 3139.8572059644066,
+    "upstream_unharvested_manufacturing_per_unit": 321.83280184849224,
+    "notes": [
+      "Full die area is manufactured for every SKU; disabling resources never reduces wafer area.",
+      "Surplus good dies have no sales or inventory credit in this production campaign.",
+      "Package losses consume additional graded dies; no second die-yield charge is applied.",
+      "Per-SKU selling prices and accounting cost allocations are not modeled."
+    ]
+  },
+  "without_harvesting": {
+    "feasible": true,
+    "scope": "one monolithic physical die, one shared organic-substrate package; expected-value production",
+    "node": "5",
+    "physical_die_area_mm2": 519.5954441903029,
+    "yields": {
+      "full_die_yield": 0.5736028078041039,
+      "eligible_yields": {
+        "L": 0.5736028078041039,
+        "M": 0.5736028078041039,
+        "S": 0.5736028078041039
+      },
+      "exclusive_bin_yields": {
+        "L": 0.5736028078041039,
+        "M": 0.0,
+        "S": 0.0
+      },
+      "scrap_yield": 0.4263971921958961,
+      "required_blocks": {
+        "L": [
+          16,
+          16,
+          32,
+          16
+        ],
+        "M": [
+          8,
+          8,
+          16,
+          8
+        ],
+        "S": [
+          4,
+          4,
+          8,
+          4
+        ]
+      },
+      "harvesting_enabled": false
+    },
+    "production": {
+      "whole_wafers": true,
+      "wafers": 5452,
+      "gross_dies_per_wafer": 96.90422066029251,
+      "fabricated_dies": 528321.8110399147,
+      "package_yield": 0.99,
+      "expected_package_failures": 3030.303030303039,
+      "demand": {
+        "L": 100000,
+        "M": 100000,
+        "S": 100000
+      },
+      "prepackage_demand": {
+        "L": 101010.10101010102,
+        "M": 101010.10101010102,
+        "S": 101010.10101010102
+      },
+      "bin_supply": {
+        "L": 303046.8742366443,
+        "M": 0.0,
+        "S": 0.0
+      },
+      "unused_bin_supply": {
+        "L": 16.571206341235666,
+        "M": 0.0,
+        "S": 0.0
+      },
+      "allocation_source_to_sku": {
+        "L": {
+          "L": 101010.10101010102,
+          "M": 101010.10101010102,
+          "S": 101010.10101010102
+        },
+        "M": {
+          "L": 0.0,
+          "M": 0.0,
+          "S": 0.0
+        },
+        "S": {
+          "L": 0.0,
+          "M": 0.0,
+          "S": 0.0
+        }
+      },
+      "scrap_dies": 225274.93680327042
+    },
+    "manufacturing_cost": {
+      "wafers": 92618576.0,
+      "bumping": 787265.824530762,
+      "raw_packages": 3149063.298123048
+    },
+    "manufacturing_total": 96554905.12265381,
+    "nre_cost": {
+      "module_design": 469367884.58524036,
+      "die_design": 390020730.7511442,
+      "package_design": 6535145.330283635
+    },
+    "nre_total": 865923760.6666682,
+    "family_total": 962478665.789322,
+    "average_manufacturing_per_shipped_unit": 321.84968374217937,
+    "average_total_per_shipped_unit": 3208.26221929774,
+    "upstream_unharvested_manufacturing_per_unit": 321.83280184849224,
+    "notes": [
+      "Full die area is manufactured for every SKU; disabling resources never reduces wafer area.",
+      "Surplus good dies have no sales or inventory credit in this production campaign.",
+      "Package losses consume additional graded dies; no second die-yield charge is applied.",
+      "Per-SKU selling prices and accounting cost allocations are not modeled."
+    ]
+  },
+  "assumptions": [
+    "Gamma-Poisson die-wide intensity; block failures conditionally independent.",
+    "Any healthy TPC/core/cache slice is usable; routing, timing and repair implementation are not modeled.",
+    "Common control, all other IP and all unidentified area overhead must be defect-free.",
+    "One physical die design and one shared OS package design across all SKUs.",
+    "Cost-node selection does not scale the input area to that technology."
+  ],
+  "soc_area_result": {
+    "valid": true,
+    "constraints": {
+      "memory_phy_shoreline": {
+        "enforced": false,
+        "passed": null,
+        "required_length_mm": 46.204081632653065,
+        "available_length_mm": 45.589272606186775,
+        "margin_mm": -0.6148090264662898,
+        "minimum_die_area_mm2": 533.7042898792171,
+        "reason": null
+      }
+    },
+    "model": "thor_soc_v1",
+    "config": {
+      "hardware": "Thor",
+      "physical_sm_count": 32,
+      "active_sm_count": 32,
+      "l2_size_mb": 64,
+      "cpu_policy": "balanced",
+      "cpu_policy_requested_cores": 18.2,
+      "cpu_core_count": 16,
+      "cpu_core_count_overridden": true,
+      "cpu_core_quantum": 2,
+      "cpu_cache_area_scale": 1.1428571428571428,
+      "memory_bus_bits": 512,
+      "integration": "board",
+      "memory_phy_total_length_mm": 46.204081632653065,
+      "memory_phy_length_source": "reference_phy_strips_scaled_by_bus_width",
+      "include_display": true,
+      "include_dla": false,
+      "include_vision_accelerator": false,
+      "vision_accelerator_component": "dsp",
+      "d2d_physical_port_count": 0,
+      "d2d_area_per_port_mm2": null,
+      "overhead_ratio": 0.27364716957638824
+    },
+    "area_breakdown_mm2": {
+      "components": {
+        "gpu_compute_complex": 213.9661057864132,
+        "cpu_cores_and_private_cache": 52.97331796505978,
+        "cpu_shared_l3": 26.020331321897526,
+        "isp": 11.770542635658915,
+        "dsp": 0.0,
+        "imaging_processor": 5.067552602436323,
+        "video_codec": 6.368992248062015,
+        "display_subsystem": 18.39126720455624,
+        "display_phy": 2.421895269735801,
+        "memory_phy": 35.387312134155984,
+        "camera_phy": 1.7703527922797024,
+        "pcie_phy": 9.373327005220691,
+        "usb_phy": 2.087897484575225,
+        "ethernet_phy": 2.3889890840056953,
+        "system_components": 19.970816961559006,
+        "d2d_interfaces": 0.0,
+        "memory_controller_explicit": 0.0
+      },
+      "modeled_subtotal": 407.9587004956161,
+      "unidentified_overhead": 111.63674369468684,
+      "total": 519.5954441903029
+    },
+    "gpu": {
+      "config": {
+        "sm_count": 32,
+        "l2_size_mb": 64,
+        "sm_l1_kb": 512,
+        "sm_reg_kb": 256
+      },
+      "area_breakdown_mm2": {
+        "total": 213.9661057864132,
+        "command_front": 28.46156033186773,
+        "l2_total": 46.93,
+        "sm_total": 99.52,
+        "extra_gpc_tpc": 39.054545454545455
+      }
+    },
+    "calibration": {
+      "reference_die_mm2": 416,
+      "reference_components_mm2": {
+        "gpu_compute_complex": 147.98156033186774,
+        "cpu_cores_and_private_cache": 46.351653219427305,
+        "cpu_shared_l3": 22.767789906660337,
+        "isp": 11.770542635658915,
+        "dsp": 12.214776143015346,
+        "imaging_processor": 5.067552602436323,
+        "video_codec": 6.368992248062015,
+        "display_subsystem": 18.39126720455624,
+        "display_phy": 2.421895269735801,
+        "memory_phy": 17.693656067077992,
+        "camera_phy": 1.7703527922797024,
+        "pcie_phy": 9.373327005220691,
+        "usb_phy": 2.087897484575225,
+        "ethernet_phy": 2.3889890840056953,
+        "system_components": 19.970816961559006
+      },
+      "reference_modeled_mm2": 326.6210689561384,
+      "reference_residual_mm2": 89.3789310438616,
+      "overhead_ratio": 0.27364716957638824
+    },
+    "warnings": [
+      "First-order area estimate; CPU sufficiency and physical layout are not validated.",
+      "Non-GPU rectangles are approximate manual measurements; residual includes unidentified system logic.",
+      "CPU core quantum and cache scaling are design assumptions, not verified physical cluster topology.",
+      "Memory PHY scales by width at the reference LPDDR technology; rate changes are not modeled.",
+      "Memory controller is not separately identified; it is represented in residual overhead.",
+      "No added inter-SoC link area: standalone die scenario, not a complete MicroPod ring die.",
+      "Identified System Components is a fixed per-die bundle. Only other unidentified logic, fabric and physical whitespace remain proportional residual.",
+      "No extra utilization multiplier: measured boxes already contain local layout overhead.",
+      "Residual is calibrated with ALL reference modules, including display and video; display is retained by default; explicit display removal occurs only after calibration.",
+      "New D2D/C2C interfaces require caller-specified PHY+controller+adapter+buffer area; existing PCIe is retained and not silently repurposed.",
+      "Only an aggregate two-edge square-die memory shoreline check is implemented for package integration; no detailed floorplan, frequency scaling, power, cost or CPU-performance model.",
+      "DSP is included in reference calibration but excluded from custom SoCs by default; identified System Components remains fixed."
+    ]
+  },
+  "manufacturing_saving_fraction": 0.21253714634105336,
+  "total_saving_fraction": 0.021321515717099504
+}

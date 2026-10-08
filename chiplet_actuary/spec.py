@@ -1,6 +1,7 @@
 from configparser import ConfigParser
+from pathlib import Path
 
-parameter_path = "parameter.ini"
+parameter_path = Path(__file__).resolve().parent.parent / "parameter.ini"
 
 param = ConfigParser()
 param.read(parameter_path)
